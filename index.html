@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memorial Form · Rochester Christian Church</title>
+<meta name="description" content="Memorial service and luncheon form for families at Rochester Christian Church.">
+<meta name="theme-color" content="#05142b">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="assets/logo-blue.png">
+<link rel="preload" href="assets/poppins-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/poppins-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: 'Poppins'; font-weight: 400; font-display: swap; src: url(assets/poppins-400.woff2) format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 500; font-display: swap; src: url(assets/poppins-500.woff2) format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 600; font-display: swap; src: url(assets/poppins-600.woff2) format('woff2'); }
+  @font-face { font-family: 'Poppins'; font-weight: 700; font-display: swap; src: url(assets/poppins-700.woff2) format('woff2'); }
+
+  /* Colours taken from rochesterchristian.church */
+  :root {
+    --navy: #05142b; --navy-2: #0d2244; --paper: #fafafa; --card: #fff;
+    --ink: #05142b; --ink-2: #3c4658; --ink-3: #5e6778;
+    --field: #f1f2f5; --line: #e6e8ec;
+    --blue: #2589e5; --blue-ink: #145fa4; --blue-soft: #e5f1fc;
+    --amber: #8a5a00; --amber-soft: #fff4dc;
+    --red: #b3261e; --red-soft: #fbe9e8;
+    --ease: cubic-bezier(.2,.8,.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { font-family: 'Poppins', system-ui, -apple-system, sans-serif; color: var(--ink); background: var(--paper); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+  main { flex: 1; width: 100%; }
+  a { color: var(--blue-ink); }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; border-radius: 10px; }
+  [hidden] { display: none !important; }
+
+  .band { background: var(--navy); color: #fff; padding-bottom: 120px; }
+  .nav { max-width: 1120px; margin: 0 auto; padding: 22px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .nav img { width: 62px; height: auto; display: block; }
+  .pill-light { display: inline-flex; align-items: center; font: 500 15px 'Poppins', sans-serif; color: var(--navy); background: #fff; border-radius: 34px; padding: 9px 20px; text-decoration: none; transition: background .2s; }
+  .pill-light:hover { background: #e9edf3; }
+  .hero { max-width: 760px; margin: 0 auto; padding: clamp(28px, 6vw, 56px) 16px 0; text-align: center; }
+  .kicker { font-weight: 600; font-size: clamp(15px, 2vw, 18px); opacity: .92; }
+  .hero h1 { font-weight: 700; font-size: clamp(36px, 7vw, 60px); line-height: 1.1; letter-spacing: -.01em; margin: 10px 0 16px; }
+  .hero p { font-size: clamp(15.5px, 2.1vw, 17.5px); color: rgba(255,255,255,.82); max-width: 36em; margin: 0 auto; }
+  .facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+  .facts span { font-size: 14px; font-weight: 500; border: 1.5px solid rgba(255,255,255,.35); border-radius: 34px; padding: 6px 14px; }
+
+  .wrap { max-width: 760px; margin: -84px auto 0; padding: 0 16px 64px; position: relative; }
+  form, .done { background: var(--card); border-radius: 22px; box-shadow: 0 2px 4px rgba(5,20,43,.04), 0 24px 60px rgba(5,20,43,.12); }
+  .sec { padding: clamp(24px, 5vw, 40px); }
+  .sec + .sec { border-top: 1px solid var(--line); }
+  .sec-h { display: flex; align-items: center; gap: 12px; }
+  .sec-h b { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; font-size: 14px; font-weight: 600; display: grid; place-items: center; }
+  .sec-h h2 { font-weight: 700; font-size: clamp(20px, 3vw, 24px); line-height: 1.25; }
+  .sec-p { color: var(--ink-3); font-size: 15px; margin: 6px 0 22px 42px; }
+  @media (max-width: 520px) { .sec-p { margin-left: 0; } }
+
+  .grid { display: grid; gap: 22px; }
+  @media (min-width: 580px) { .two { grid-template-columns: 1fr 1fr; } }
+
+  .f { display: grid; gap: 8px; border: 0; min-width: 0; }
+  .f > label, .f > legend { font-size: 15px; font-weight: 600; padding: 0; }
+  .f small.opt { font-weight: 400; color: var(--ink-3); font-size: 13.5px; margin-left: 4px; }
+  .req { color: var(--blue); margin-left: 2px; }
+  .help { font-size: 13.5px; color: var(--ink-3); }
+  input[type=text], input[type=email], input[type=tel], input[type=date], textarea {
+    font: inherit; font-size: 16px; color: var(--ink); width: 100%;
+    background: var(--field); border: 2px solid transparent; border-radius: 12px; padding: 12px 16px;
+    transition: border-color .2s, background .2s, box-shadow .2s; -webkit-appearance: none; appearance: none;
+  }
+  input[type=date] { min-height: 52px; }
+  textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
+  input::placeholder, textarea::placeholder { color: #8a92a1; }
+  input:hover, textarea:hover { background: #eaecf0; }
+  input:focus, textarea:focus { outline: none; background: #fff; border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
+  .f.bad input[type=text], .f.bad input[type=email], .f.bad input[type=date], .f.bad textarea { border-color: var(--red); background: var(--red-soft); }
+  .err { font-size: 13.5px; color: var(--red); display: none; }
+  .f.bad .err { display: block; }
+
+  /* choice cards (radio / checkbox) */
+  .choices { display: grid; gap: 10px; }
+  @media (min-width: 580px) { .choices.cols { grid-template-columns: 1fr 1fr; } }
+  .opt-card { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; background: var(--field); border: 2px solid transparent; cursor: pointer; font-size: 15px; transition: background .2s, border-color .2s; }
+  .opt-card:hover { background: #eaecf0; }
+  .opt-card input { flex: none; width: 20px; height: 20px; accent-color: var(--navy); margin: 0; }
+  .opt-card:has(input:checked) { background: var(--blue-soft); border-color: var(--blue); }
+  .opt-card:has(input:focus-visible) { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .opt-card .who { color: var(--ink-3); }
+  .opt-card.other { flex-wrap: wrap; }
+  .opt-card.other input[type=text] { flex: 1 1 180px; padding: 8px 12px; background: #fff; }
+  .f.bad .choices .opt-card { border-color: var(--red); }
+
+  .callout { display: flex; gap: 12px; align-items: flex-start; background: var(--amber-soft); color: #4a3300; border-radius: 14px; padding: 14px 16px; font-size: 14.5px; }
+  .callout svg { flex: none; margin-top: 2px; color: var(--amber); }
+  .callout b { color: #3b2800; }
+  .callout.info { background: var(--blue-soft); color: var(--navy); }
+  .callout.info svg { color: var(--blue-ink); }
+
+  /* photo */
+  .drop { position: relative; display: grid; place-items: center; text-align: center; gap: 10px; min-height: 210px; padding: 26px; border-radius: 18px; cursor: pointer; border: 2px dashed #c9ced8; background: var(--field); transition: border-color .2s, background .2s, transform .2s var(--ease); }
+  .drop:hover, .drop.over { border-color: var(--blue); background: var(--blue-soft); }
+  .drop.over { transform: scale(1.01); }
+  .drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .drop .ic { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: #fff; }
+  .drop strong { font-size: 16px; font-weight: 600; }
+  .drop strong u { color: var(--blue-ink); text-decoration: underline; text-underline-offset: 3px; }
+  .drop span { font-size: 13.5px; color: var(--ink-3); }
+  .f.bad .drop { border-color: var(--red); background: var(--red-soft); }
+  .preview { display: grid; grid-template-columns: 136px 1fr; gap: 20px; align-items: center; padding: 14px; border-radius: 18px; background: var(--field); }
+  .preview img { width: 136px; height: 136px; object-fit: cover; border-radius: 14px; background: #e3e6eb; }
+  .preview .meta { min-width: 0; }
+  .preview .nm { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .preview .sz { font-size: 13.5px; color: var(--ink-3); margin: 2px 0 12px; }
+  @media (max-width: 420px) { .preview { grid-template-columns: 96px 1fr; } .preview img { width: 96px; height: 96px; } }
+  .btn-outline { font: 600 14px 'Poppins', sans-serif; color: var(--navy); background: #fff; border: 2px solid var(--navy); border-radius: 34px; padding: 7px 18px; cursor: pointer; transition: background .2s, color .2s; }
+  .btn-outline:hover { background: var(--navy); color: #fff; }
+
+  .sunday { background: var(--navy); color: #fff; border-radius: 18px; padding: 22px; display: grid; gap: 14px; }
+  .sunday .row { display: flex; gap: 14px; align-items: flex-start; }
+  .sunday .row svg { flex: none; margin-top: 3px; opacity: .85; }
+  .sunday .row b { display: block; font-weight: 600; }
+  .sunday .row span { color: rgba(255,255,255,.8); font-size: 14.5px; }
+  .sunday a { color: #fff; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .foot { padding: clamp(24px, 5vw, 40px); border-top: 1px solid var(--line); display: grid; gap: 14px; justify-items: center; }
+  .submit { font: 700 17px 'Poppins', sans-serif; color: #fff; background: var(--navy); border: 0; border-radius: 34px; padding: 16px 40px; cursor: pointer; width: 100%; max-width: 380px; display: inline-flex; justify-content: center; align-items: center; gap: 10px; transition: background .2s, transform .15s var(--ease); }
+  .submit:hover { background: var(--navy-2); }
+  .submit:active { transform: scale(.98); }
+  .submit[disabled] { cursor: progress; opacity: .85; }
+  .spin { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .note { font-size: 13.5px; color: var(--ink-3); text-align: center; }
+  .alert { display: none; width: 100%; background: var(--red-soft); color: var(--red); border-radius: 12px; padding: 12px 16px; font-size: 14.5px; }
+  .alert.show { display: block; }
+
+  .done { padding: clamp(40px, 8vw, 64px) clamp(24px, 6vw, 48px); text-align: center; animation: rise .5s var(--ease); }
+  .done .check { width: 76px; height: 76px; margin: 0 auto 22px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue-ink); }
+  .done h2 { font-weight: 700; font-size: clamp(28px, 5vw, 36px); line-height: 1.2; margin-bottom: 10px; }
+  .done p { color: var(--ink-2); max-width: 30em; margin: 0 auto; }
+  .done .btn-outline { margin-top: 28px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  footer.site { background: var(--navy); color: rgba(255,255,255,.8); text-align: center; padding: 40px 16px; font-size: 14px; }
+  footer.site img { width: 48px; height: auto; margin: 0 auto 12px; display: block; }
+  footer.site b { display: block; color: #fff; font-weight: 600; font-size: 16px; margin-bottom: 2px; }
+  footer.site a { color: #fff; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  input[type=time], input[type=number] {
+    font: inherit; font-size: 16px; color: var(--ink); width: 100%; min-height: 52px;
+    background: var(--field); border: 2px solid transparent; border-radius: 12px; padding: 12px 16px;
+    transition: border-color .2s, background .2s, box-shadow .2s; -webkit-appearance: none; appearance: none;
+  }
+  input[type=time]:hover, input[type=number]:hover { background: #eaecf0; }
+  input[type=time]:focus, input[type=number]:focus { outline: none; background: #fff; border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-soft); }
+  .f.bad input[type=number], .f.bad input[type=tel] { border-color: var(--red); background: var(--red-soft); }
+  .menu-note { display: flex; gap: 12px; align-items: flex-start; background: var(--blue-soft); color: var(--navy); border-radius: 14px; padding: 14px 16px; font-size: 14.5px; }
+  .menu-note svg { flex: none; margin-top: 2px; color: var(--blue-ink); }
+</style>
+</head>
+<body>
+<div class="band">
+  <nav class="nav">
+    <a href="https://www.rochesterchristian.church/" aria-label="Rochester Christian Church home"><img src="assets/logo-white.png" alt="RCC"></a>
+    <a class="pill-light" href="https://www.rochesterchristian.church/">Our website</a>
+  </nav>
+  <section class="hero">
+    <div class="kicker">Service &amp; Memorial</div>
+    <h1>Memorial Form</h1>
+    <p>We're so sorry for your loss. It's an honor to help you remember and celebrate your loved one. Share what you can, and our team will be in touch about the details.</p>
+  </section>
+</div>
+
+<main class="wrap">
+  <form id="form" novalidate>
+    <!-- 1 -->
+    <div class="sec">
+      <div class="sec-h"><b>1</b><h2>Your loved one</h2></div>
+      <p class="sec-p">Who we're remembering, and when.</p>
+      <div class="grid">
+        <div class="f" data-req="text" data-name="lovedOne">
+          <label for="lovedOne">Your loved one's name<span class="req">*</span></label>
+          <input id="lovedOne" name="lovedOne" type="text" maxlength="160">
+          <div class="err">Please add your loved one's name.</div>
+        </div>
+        <div class="grid two">
+          <div class="f">
+            <label for="serviceDate">Date of the service <small class="opt">if known</small></label>
+            <input id="serviceDate" name="serviceDate" type="date">
+          </div>
+          <div class="f">
+            <label for="serviceTime">Time <small class="opt">if known</small></label>
+            <input id="serviceTime" name="serviceTime" type="time" step="900">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="sec">
+      <div class="sec-h"><b>2</b><h2>About you</h2></div>
+      <p class="sec-p">So we can reach you and send you a copy of this form.</p>
+      <div class="grid">
+        <div class="grid two">
+          <div class="f" data-req="text" data-name="contactName">
+            <label for="contactName">Your name<span class="req">*</span></label>
+            <input id="contactName" name="contactName" type="text" autocomplete="name" maxlength="120">
+            <div class="err">Please add your name.</div>
+          </div>
+          <div class="f">
+            <label for="relationship">Your relationship to them <small class="opt">optional</small></label>
+            <input id="relationship" name="relationship" type="text" maxlength="120" placeholder="e.g. Daughter">
+          </div>
+        </div>
+        <div class="grid two">
+          <div class="f" data-req="email" data-name="email">
+            <label for="email">Email<span class="req">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" maxlength="200">
+            <div class="err">Please check your email address.</div>
+          </div>
+          <div class="f">
+            <label for="phone">Phone <small class="opt">optional</small></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="sec">
+      <div class="sec-h"><b>3</b><h2>Sweet memories</h2></div>
+      <p class="sec-p">A few of their favorite things help us make the service personal. Answer whatever you'd like.</p>
+      <div class="grid">
+        <div class="grid two">
+          <div class="f">
+            <label for="color">Favorite color</label>
+            <input id="color" name="color" type="text" maxlength="120">
+          </div>
+          <div class="f">
+            <label for="genre">Favorite kind of music</label>
+            <input id="genre" name="genre" type="text" maxlength="160" placeholder="e.g. Gospel, country, big band">
+          </div>
+        </div>
+        <div class="f">
+          <label for="musician">Favorite musician or singer</label>
+          <input id="musician" name="musician" type="text" maxlength="200">
+        </div>
+        <div class="f">
+          <label for="hobbies">Hobbies, interests and things they loved to do</label>
+          <textarea id="hobbies" name="hobbies" maxlength="4000" placeholder="Gardening, fishing with the grandkids, Sunday crossword…"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="sec">
+      <div class="sec-h"><b>4</b><h2>Luncheon</h2></div>
+      <p class="sec-p">Lunch is served right after the service in the Fellowship Hall at the back of the church.</p>
+      <div class="grid">
+        <div class="menu-note">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3v8a3 3 0 0 0 3 3v7M7 3v6M10 3v8a3 3 0 0 1-3 3M17 21V3c-2 0-4 2.5-4 6s2 5 4 5"/></svg>
+          <div>Food is served <b>family style</b>. Choose one of each below.</div>
+        </div>
+        <div class="f" data-req="text" data-name="attendees">
+          <label for="attendees">About how many people do you think will come?<span class="req">*</span></label>
+          <input id="attendees" name="attendees" type="number" inputmode="numeric" min="1" max="2000" placeholder="e.g. 60" style="max-width:220px">
+          <div class="err">Please give us your best guess.</div>
+        </div>
+        <fieldset class="f" data-req="radio" data-name="bread">
+          <legend>Bread<span class="req">*</span></legend>
+          <div class="choices cols">
+            <label class="opt-card"><input type="radio" name="bread" value="Dinner roll"><span>Dinner roll</span></label>
+            <label class="opt-card"><input type="radio" name="bread" value="Breadstick"><span>Breadstick</span></label>
+            <label class="opt-card"><input type="radio" name="bread" value="Cornbread"><span>Cornbread</span></label>
+          </div>
+          <div class="err">Please choose a bread.</div>
+        </fieldset>
+        <fieldset class="f" data-req="radio" data-name="salad">
+          <legend>Salad<span class="req">*</span></legend>
+          <div class="choices cols">
+            <label class="opt-card"><input type="radio" name="salad" value="Tossed salad"><span>Tossed salad</span></label>
+            <label class="opt-card"><input type="radio" name="salad" value="Cole slaw"><span>Cole slaw</span></label>
+          </div>
+          <div class="err">Please choose a salad.</div>
+        </fieldset>
+        <fieldset class="f" data-req="radio" data-name="main">
+          <legend>Main dish<span class="req">*</span></legend>
+          <div class="choices cols">
+            <label class="opt-card"><input type="radio" name="main" value="Chicken & potatoes"><span>Chicken &amp; potatoes</span></label>
+            <label class="opt-card"><input type="radio" name="main" value="Ham & potatoes"><span>Ham &amp; potatoes</span></label>
+            <label class="opt-card"><input type="radio" name="main" value="Lasagna"><span>Lasagna</span></label>
+          </div>
+          <div class="err">Please choose a main dish.</div>
+        </fieldset>
+        <fieldset class="f" data-req="radio" data-name="veg">
+          <legend>Vegetable<span class="req">*</span></legend>
+          <div class="choices cols">
+            <label class="opt-card"><input type="radio" name="veg" value="Green beans"><span>Green beans</span></label>
+            <label class="opt-card"><input type="radio" name="veg" value="Buttered corn"><span>Buttered corn</span></label>
+          </div>
+          <div class="err">Please choose a vegetable.</div>
+        </fieldset>
+        <div class="f">
+          <label for="notes">Anything else we should know? <small class="opt">optional</small></label>
+          <textarea id="notes" name="notes" maxlength="3000" style="min-height:90px" placeholder="Food allergies, special requests, questions"></textarea>
+        </div>
+      </div>
+      <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+    </div>
+
+    <div class="foot">
+      <div class="alert" id="alert" role="alert"></div>
+      <button class="submit" id="submit" type="submit"><span id="submitLabel">Submit</span></button>
+      <p class="note">We'll email you a copy of your answers.</p>
+    </div>
+  </form>
+
+  <div class="done" id="done" hidden>
+    <div class="check" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+    <h2 id="doneTitle">Thank you</h2>
+    <p>We received your form, and a copy is on its way to <b id="doneEmail"></b>. Someone from our team will be in touch soon. We're praying for you and your family.</p>
+    <button type="button" class="btn-outline" id="again">Fill out another form</button>
+  </div>
+</main>
+
+<footer class="site">
+  <img src="assets/logo-white.png" alt="">
+  <b>Rochester Christian Church</b>
+  Love God. Love People. · <a href="https://www.rochesterchristian.church/">rochesterchristian.church</a>
+</footer>
+
+<script>
+// Paste the Apps Script Web app URL here (Deploy > Manage deployments > Web app URL).
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrJDW0hQkzW09--A8koqUA5AVDEJi8exU7TjZLc2uLwPVkFNqoDgWYYPwa6k82a0Yhqg/exec';
+
+(function () {
+  var form = document.getElementById('form');
+  var alertBox = document.getElementById('alert');
+  var submit = document.getElementById('submit');
+  var label = document.getElementById('submitLabel');
+
+  function q(sel) { return form.querySelector(sel); }
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function radio(name) { var r = q('input[name="' + name + '"]:checked'); return r ? r.value : ''; }
+
+  function clearBad(e) { var f = e.target.closest('.f'); if (f) f.classList.remove('bad'); }
+  form.addEventListener('change', clearBad);
+  form.addEventListener('input', clearBad);
+
+  function gather() {
+    return {
+      lovedOne: val('lovedOne'), serviceDate: val('serviceDate'), serviceTime: val('serviceTime'),
+      contactName: val('contactName'), relationship: val('relationship'), email: val('email'), phone: val('phone'),
+      color: val('color'), genre: val('genre'), musician: val('musician'), hobbies: val('hobbies'),
+      attendees: val('attendees'), bread: radio('bread'), salad: radio('salad'), main: radio('main'), veg: radio('veg'),
+      notes: val('notes'), company: val('company')
+    };
+  }
+  function validate(v) {
+    var first = null;
+    form.querySelectorAll('[data-req]').forEach(function (f) {
+      var n = f.dataset.name, ok;
+      if (f.dataset.req === 'email') ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email);
+      else if (n === 'attendees') ok = /^\d{1,4}$/.test(v.attendees) && +v.attendees > 0;
+      else ok = !!v[n];
+      f.classList.toggle('bad', !ok);
+      if (!ok && !first) first = f;
+    });
+    if (first) {
+      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var inp = first.querySelector('input, textarea');
+      if (inp) setTimeout(function () { inp.focus({ preventScroll: true }); }, 300);
+    }
+    return !first;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    alertBox.classList.remove('show');
+    var v = gather();
+    if (!validate(v)) return;
+    submit.disabled = true;
+    label.textContent = 'Sending…';
+    var sp = document.createElement('span'); sp.className = 'spin'; sp.setAttribute('aria-hidden', 'true'); submit.prepend(sp);
+    send(v).then(function (res) {
+      if (!res || !res.ok) throw new Error((res && res.error) || 'Something went wrong. Please try again.');
+      document.getElementById('doneTitle').textContent = 'Thank you, ' + v.contactName.split(/[\s&]/)[0];
+      document.getElementById('doneEmail').textContent = v.email;
+      form.hidden = true;
+      document.getElementById('done').hidden = false;
+      document.getElementById('done').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }).catch(function (err) {
+      alertBox.textContent = err.message === 'Failed to fetch' ? 'We couldn’t reach our server. Please check your connection and try again.' : err.message;
+      alertBox.classList.add('show');
+    }).then(function () {
+      submit.disabled = false;
+      var s = submit.querySelector('.spin'); if (s) s.remove();
+      label.textContent = 'Submit';
+    });
+  });
+
+  function send(v) {
+    if (!SCRIPT_URL) {
+      if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || location.protocol === 'file:') {
+        return new Promise(function (r) { setTimeout(function () { r({ ok: true }); }, 1200); });
+      }
+      return Promise.resolve({ ok: false, error: 'This form isn’t open yet. Please call or email the church office.' });
+    }
+    return fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(v), headers: { 'Content-Type': 'text/plain;charset=utf-8' } })
+      .then(function (r) { return r.json(); });
+  }
+
+  document.getElementById('again').addEventListener('click', function () {
+    form.reset();
+    document.getElementById('done').hidden = true; form.hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
